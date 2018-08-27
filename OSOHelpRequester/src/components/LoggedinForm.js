@@ -4,7 +4,7 @@ import firebase from '@firebase/app';
 import '@firebase/auth';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 
-class LogedinForm extends Component {
+class LoggedinForm extends Component {
     state = { signalSend: false };
 
     render() {
@@ -34,9 +34,11 @@ class LogedinForm extends Component {
 
     sendSignal() {
         this.setState({ signalSend: true });
+        console.debug("Signal send clicked");
+        console.debug("state.signalSend = " + signalSend);
     };
 }
 
 
 
-export default LogedinForm;
+export default LoggedinForm;
