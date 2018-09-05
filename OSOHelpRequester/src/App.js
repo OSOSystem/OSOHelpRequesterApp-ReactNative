@@ -9,7 +9,6 @@ import LoggedinForm from './components/LoggedinForm';
 class App extends Component {
     state = { loggedIn: null };
 
-    // Lifecycle-Method
     componentWillMount() {
         firebase.initializeApp({
             apiKey: "AIzaSyCs3yPAeeP8vhV1xvEr1MTVqjwX_3owoV0",
