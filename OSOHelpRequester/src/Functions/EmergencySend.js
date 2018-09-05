@@ -1,11 +1,15 @@
 export async function sendEmergency(latitude, longitude) {
     var data = {
-        latitude: latitude,
-        longitude: longitude,
+        helpRequesterId: 1,
+        coordinates: {
+            latitude: latitude,
+            longitude: longitude,
+        },
+        formattedAddress: "HelpRequester",
     };
     try {
      let response = await fetch(
-      "51.38.113.244",
+      "http://51.38.113.244:8080/emergency/emit",
       {
         method: "POST",
         headers: {

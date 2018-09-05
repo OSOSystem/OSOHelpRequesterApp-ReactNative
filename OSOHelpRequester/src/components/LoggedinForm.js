@@ -4,6 +4,7 @@ import firebase from '@firebase/app';
 import '@firebase/auth';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import GeolocationOSO from '../Functions/Geolocation';
+import { sendEmergency } from '../Functions/EmergencySend';
 
 class LoggedinForm extends Component {
     state = { signalSend: false, longitude: null, latitude: null };
@@ -15,9 +16,10 @@ class LoggedinForm extends Component {
 
         GeolocationOSO.refreshGeolocation();
         console.log("started refreshing geolocation");
-        
+
         var geodata = GeolocationOSO.getGeodata();
-        this.setState({ longitude: geodata.longitude, latitude: geodata.latitude })
+        this.setState({ longitude: geodata.longitude, latitude: geodata.latitude });
+        sendEmergency(geodata.latitude, geodata.longitude);
     }
 
     render() {
