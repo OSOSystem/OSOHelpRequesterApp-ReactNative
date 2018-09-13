@@ -1,8 +1,12 @@
 # OSO Help Requester Mobile App
 ## OS-Support
-### iOS
+### iOS (currently not tested)
 
 ### Android
+Minimal supported version Android 4.1
+
+## Old OSO Android App
+https://github.com/pwilken/TrackingSystemAndroidApp
 
 ## Licensing
 Apache 2.0 licensing https://github.com/pwilken/OSOHelpRequesterApp-ReactNative/blob/master/LICENSE
