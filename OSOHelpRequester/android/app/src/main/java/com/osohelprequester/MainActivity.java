@@ -1,6 +1,8 @@
 package com.osohelprequester;
 
+import android.content.Intent;
 import com.facebook.react.ReactActivity;
+import com.fliclib_reactnative.RNFlicLibPackage;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +13,10 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "OSOHelpRequester";
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        RNFlicLibModule.activityResult(requestCode, resultCode, data);        
     }
 }

@@ -24,4 +24,12 @@
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 
+    <receiver>
+        android:name=".ExampleBroadcastReceiver"
+        android:enabled="true"
+        android:exported="true" >
+        <intent-filter>
+            <action android:name="io.flic.FLICLIB_EVENT" />
+        </intent-filter>
+    </receiver>
 </manifest>

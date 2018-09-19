@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, DeviceEventEmitter } from 'react-native';
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import { Button, Card, CardSection, Input, Spinner } from './common';
@@ -8,6 +8,12 @@ import { sendEmergency } from '../Functions/EmergencySend';
 
 class LoggedinForm extends Component {
     state = { signalSend: false, longitude: null, latitude: null };
+
+    componentWillMount() {
+        DeviceEventEmitter.addListener('flicButtonPressed', function(Event) {
+          sendSignal();
+        });
+      }
 
     sendSignal() {
         this.setState({ signalSend: true });

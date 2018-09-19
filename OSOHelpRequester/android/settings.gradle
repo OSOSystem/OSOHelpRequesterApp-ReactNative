@@ -1,3 +1,5 @@
 rootProject.name = 'OSOHelpRequester'
 
 include ':app'
+include ':react-native-flic-lib'
+project(':react-native-flic-lib').projectDir = new File(rootProject.projectDir, '../FlicLib/android')
