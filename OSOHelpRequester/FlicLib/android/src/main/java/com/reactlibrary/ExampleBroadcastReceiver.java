@@ -28,11 +28,4 @@ public class ExampleBroadcastReceiver extends FlicBroadcastReceiver {
             RNFlicLibModule.sendEvent("flicButtonPressed");
         }
     }
-
-    @override
-    public void onButtonRemoved(Context context, FlicButton button) {
-        // Button was removed
-    }
-
-
 }

@@ -16,24 +16,29 @@ import io.flic.lib.FlicBroadcastReceiverFlags;
 import io.flic.lib.FlicButton;
 import android.content.Intent;
 import io.flic.lib.FlicBroadcastReceiver;
+import com.facebook.react.bridge.ReactApplicationContext;
 
 
 public class IniFlicLib {
-    public static void iniFlicLib() {
+    private ReactApplicationContext reactContext;
+
+    public void ini(ReactApplicationContext rAC) {
         // appId, appSecret, appName
         FlicManager.setAppCredentials("31eda4d5-302d-49b0-8d69-5ab86dc1325a",
                 "a4d85782-0bc6-419f-a993-77e999ae9be3",
                 "OSOAndroid");
+
+        reactContext = rAC;
     }
 
     // flic app will appear and the user can choose his flic button
     // the flic manager will take the choosed flic button
-    public static void getFlicButton() {
+    public void getFlicButton() {
         try {
-            FlicManager.getInstance(this, new FlicManagerInitializedCallback() {
+            FlicManager.getInstance(reactContext, new FlicManagerInitializedCallback() {
                 @Override
                 public void onInitialized(FlicManager manager) {
-                    manager.initiateGrabButton(MainActivity.this);
+                    manager.initiateGrabButton(reactContext.getCurrentActivity());
                 }
             });
         } catch (FlicAppNotInstalledException err) {
@@ -44,8 +49,8 @@ public class IniFlicLib {
     // To receive the button object, we must feed the result into the manager which then returns
     // the button object. With the button object, we register for notifications. In this example,
     // we’re only interested in down, up and remove events.
-    public static void onActivityResultFlic(final int requestCode, final int resultCode, final Intent data) {
-        FlicManager.getInstance(this, new FlicManagerInitializedCallback() {
+    public void onActivityResultFlic(final int requestCode, final int resultCode, final Intent data) {
+        FlicManager.getInstance(reactContext, new FlicManagerInitializedCallback() {
             @Override
             public void onInitialized(FlicManager manager) {
                 FlicButton button = manager.completeGrabButton(requestCode, resultCode, data);

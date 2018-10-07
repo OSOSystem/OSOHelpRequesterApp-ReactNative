@@ -2,7 +2,6 @@ package com.osohelprequester;
 
 import android.content.Intent;
 import com.facebook.react.ReactActivity;
-import com.fliclib_reactnative.RNFlicLibPackage;
 
 public class MainActivity extends ReactActivity {
 

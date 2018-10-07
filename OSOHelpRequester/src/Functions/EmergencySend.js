@@ -9,7 +9,7 @@ export async function sendEmergency(latitude, longitude) {
     };
     try {
      let response = await fetch(
-      "http://51.38.113.244:8080/emergency/emit",
+      "http://app.ososystem.de:8080/emergency/emit",
       {
         method: "POST",
         headers: {
