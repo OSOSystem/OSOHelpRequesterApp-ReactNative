@@ -7,9 +7,12 @@ import GeolocationOSO from '../Functions/Geolocation';
 import { sendEmergency } from '../Functions/EmergencySend';
 
 class LoggedinForm extends Component {
-    state = { signalSend: false, longitude: null, latitude: null };
+    state = { signalSend: false, longitude: 0.000000, latitude: 0.000000 };
 
     componentWillMount() {
+        GeolocationOSO.refreshGeolocation();
+        
+        // For Android: Emitted in native Code -> FlicLib/.../reactlibrary/BroadcastReceiver.java
         DeviceEventEmitter.addListener('flicButtonPressed', function(Event) {
           sendSignal();
         });
@@ -38,7 +41,7 @@ class LoggedinForm extends Component {
                 </CardSection>
                 <CardSection>
                     <Text>Signal send:</Text>
-                    <Text value={this.state.signalSend}/>
+                    <Text>{this.state.signalSend.toString()}</Text>
                 </CardSection>
                 <CardSection>
                     <Text>Signal reached server: </Text>
@@ -47,8 +50,10 @@ class LoggedinForm extends Component {
                     <Text>Signal reached HP: </Text>
                 </CardSection>
                 <CardSection>
-                    <Text value={ this.state.latitude }/>
-                    <Text value={ this.state.longitude }/>                    
+                    <Text>Latitude: { this.state.latitude.toString() }</Text>                 
+                </CardSection>
+                <CardSection>
+                    <Text>Longitude: { this.state.longitude.toString() }</Text> 
                 </CardSection>
                 <CardSection>
                     <Button onPress={() => firebase.auth().signOut()}>

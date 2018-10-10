@@ -7,7 +7,7 @@ import io.flic.lib.FlicBroadcastReceiver;
 import io.flic.lib.FlicButton;
 import io.flic.lib.FlicManager;
 
-public class ExampleBroadcastReceiver extends FlicBroadcastReceiver {
+public class BroadcastReceiver extends FlicBroadcastReceiver {
     @Override
     protected void onRequestAppCredentials(Context context) {
         FlicManager.setAppCredentials("31eda4d5-302d-49b0-8d69-5ab86dc1325a",

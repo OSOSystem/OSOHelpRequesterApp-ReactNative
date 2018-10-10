@@ -3,7 +3,7 @@
           package="com.reactlibrary">
     <application>
         <receiver
-            android:name=".ExampleBroadcastReceiver"
+            android:name=".BroadcastReceiver"
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
