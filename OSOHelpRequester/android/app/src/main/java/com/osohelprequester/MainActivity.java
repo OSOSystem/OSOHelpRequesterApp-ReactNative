@@ -13,9 +13,4 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "OSOHelpRequester";
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        RNFlicLibModule.activityResult(requestCode, resultCode, data);        
-    }
 }
