@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Alert, Linking } from 'react-native';
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import { Header, Button, Spinner, Card, CardSection } from './components/common';
 import LoginForm from './components/LoginForm';
 import LoggedinForm from './components/LoggedinForm';
 
-class App extends Component {
+type Props = {};
+export default class App extends Component<Props> {
     state = { loggedIn: null };
 
-    componentWillMount() {
-        firebase.initializeApp({
-            apiKey: "AIzaSyCs3yPAeeP8vhV1xvEr1MTVqjwX_3owoV0",
-            authDomain: "ososystem-5f531.firebaseapp.com",
-            databaseURL: "https://ososystem-5f531.firebaseio.com",
-            projectId: "ososystem-5f531",
-            storageBucket: "",
-            messagingSenderId: "869224602162"
-        });
-
+    componentWillMount() {        
+        if (!firebase.apps.length) {
+            firebase.initializeApp({
+                apiKey: "AIzaSyCs3yPAeeP8vhV1xvEr1MTVqjwX_3owoV0",
+                authDomain: "ososystem-5f531.firebaseapp.com",
+                databaseURL: "https://ososystem-5f531.firebaseio.com",
+                projectId: "ososystem-5f531",
+                storageBucket: "",
+                messagingSenderId: "869224602162"
+            });
+        }
+        
         firebase.auth().onAuthStateChanged((user) => {
             if(user) {
                 this.setState({ loggedIn: true });
@@ -26,6 +29,20 @@ class App extends Component {
                 this.setState({ loggedIn: false });
             }
         });
+    }
+
+    componentDidMount() {
+        // Used for our intent handling (atm. just for flic-button)
+        Linking.addEventListener('url', this.handleOpenURL);
+    }
+
+    componentWillUnmount() {
+        Linking.removeEventListener('url', this.handleOpenURL);
+    }
+
+    handleOpenURL(event) {
+        console.log("OSO-App -> Action reached: " + event.url);
+        this.setState({ loggedIn: true });
     }
 
     renderContent() {
@@ -36,7 +53,6 @@ class App extends Component {
                 return <LoginForm />;
             default:
                 return <Spinner size="large" />;
-
         }        
     }
 
@@ -49,5 +65,3 @@ class App extends Component {
         );
     }
 }
-
-export default App;

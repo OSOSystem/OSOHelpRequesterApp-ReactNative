@@ -1,22 +1,40 @@
 import React, { Component } from 'react';
-import { Text, DeviceEventEmitter } from 'react-native';
+import { Text, DeviceEventEmitter, Linking, Alert } from 'react-native';
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import GeolocationOSO from '../Functions/Geolocation';
 import { sendEmergency } from '../Functions/EmergencySend';
 
-class LoggedinForm extends Component {
+type Props = {};
+export default class LoggedinForm extends Component<Props> {
     state = { signalSend: false, longitude: 0.000000, latitude: 0.000000 };
 
-    componentWillMount() {
+    componentDidMount() {
+        // Used for our intent handling (atm. just for flic-button)
+        Linking.addEventListener('url', this.handleOpenURL);
+
         GeolocationOSO.refreshGeolocation();
-        
-        // For Android: Emitted in native Code -> FlicLib/.../reactlibrary/BroadcastReceiver.java
-        DeviceEventEmitter.addListener('flicButtonPressed', function(Event) {
-          sendSignal();
-        });
       }
+
+    componentWillUnmount() {
+        //Linking.removeEventListener('url', this.handleOpenURL);
+    }
+
+    handleOpenURL(event) {
+        console.log("OSO-App -> Action reached: " + event.url);
+        this.sendSignal();
+        Alert.alert(
+            'Alert Title',
+            'My Alert Msg',
+            [
+                {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            { cancelable: false }
+        )
+    }
 
     sendSignal() {
         this.setState({ signalSend: true });
@@ -64,7 +82,3 @@ class LoggedinForm extends Component {
         );
     }
 }
-
-
-
-export default LoggedinForm;
