@@ -22,7 +22,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         <intent-filter android:label="filter_react_native">
-            <action android:name="android.intent.action.SEND" />
+            <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <data android:scheme="osoapp" android:host="action"/>
         </intent-filter>

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { View, Alert, Linking } from 'react-native';
-import firebase from '@firebase/app';
-import '@firebase/auth';
+//import firebase from '@firebase/app';
+//import '@firebase/auth';
 import { Header, Button, Spinner, Card, CardSection } from './components/common';
 import LoginForm from './components/LoginForm';
 import LoggedinForm from './components/LoggedinForm';
 
 type Props = {};
 export default class App extends Component<Props> {
-    state = { loggedIn: null };
+    //state = { loggedIn: null };
+    state = { loggedIn: true };
 
-    componentWillMount() {        
+    componentWillMount() {  
+        /*      
         if (!firebase.apps.length) {
             firebase.initializeApp({
                 apiKey: "AIzaSyCs3yPAeeP8vhV1xvEr1MTVqjwX_3owoV0",
@@ -28,21 +30,7 @@ export default class App extends Component<Props> {
             } else {
                 this.setState({ loggedIn: false });
             }
-        });
-    }
-
-    componentDidMount() {
-        // Used for our intent handling (atm. just for flic-button)
-        Linking.addEventListener('url', this.handleOpenURL);
-    }
-
-    componentWillUnmount() {
-        Linking.removeEventListener('url', this.handleOpenURL);
-    }
-
-    handleOpenURL(event) {
-        console.log("OSO-App -> Action reached: " + event.url);
-        this.setState({ loggedIn: true });
+        });*/
     }
 
     renderContent() {
