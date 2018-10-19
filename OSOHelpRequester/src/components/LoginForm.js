@@ -1,15 +1,43 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
+import Login from '../keycloak/index';
+
+const defaultConfig = {
+    url: 'https://app.ososystem.de/auth',
+    realm: 'osorealm',
+    clientId: 'login-app',
+    clientSecret: 'e5f1cf4f-c5d8-4989-ba46-0a8a50ec557e'
+  };
 
 class LoginForm extends Component {
     state = { email: '', password: '', error: '', loading: false };
 
-    onButtonPress() {
+    async onButtonPress() {
         const { email, password } = this.state;
-
         this.setState({ error: '', loading: true });
+        
+        const config = { 
+            url: defaultConfig.url, 
+            realm: defaultConfig.realm, 
+            username: email,
+            password: password,
+            clientId: defaultConfig.clientId,
+            clientSecret: defaultConfig.clientSecret 
+        };
+        config.password = password;
 
+        await Login.startLoginProcess(config).then(tokens => {
+            if(JSON.stringify(tokens).includes("access_token")) {
+                Login.saveTokens(tokens);
+                Alert.alert("Logged-In");
+                onLoginSuccess();
+            } 
+            else {
+                Alert.alert("Error"); 
+                onLoginFailed();
+            }
+        }); 
     }
 
     onLoginSuccess() {

@@ -186,4 +186,8 @@ export class Login {
     setHeader(key, value) {
       this.props.requestOptions.headers[key] = value;
     }
+
+    saveTokens(tokens) {
+      this.tokenStorage.saveTokens(tokens);
+    }
 }

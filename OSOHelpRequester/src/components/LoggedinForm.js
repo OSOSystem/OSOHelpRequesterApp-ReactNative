@@ -3,6 +3,7 @@ import { Text, DeviceEventEmitter, Linking, Alert } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import GeolocationOSO from '../Functions/Geolocation';
 import { sendEmergency } from '../Functions/EmergencySend';
+import Login from '../keycloak/index';
 
 type Props = {};
 export default class LoggedinForm extends Component<Props> {
@@ -72,7 +73,7 @@ export default class LoggedinForm extends Component<Props> {
                     <Text>Longitude: { this.state.longitude.toString() }</Text> 
                 </CardSection>
                 <CardSection>
-                    <Button>
+                    <Button onPress={Login.logoutKc.bind(this)}>
                         Log Out
                     </Button>
                 </CardSection>                    
