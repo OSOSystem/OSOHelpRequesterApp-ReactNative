@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Text, DeviceEventEmitter, Linking, Alert } from 'react-native';
-//import firebase from '@firebase/app';
-//import '@firebase/auth';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import GeolocationOSO from '../Functions/Geolocation';
 import { sendEmergency } from '../Functions/EmergencySend';
@@ -15,7 +13,6 @@ export default class LoggedinForm extends Component<Props> {
         Linking.addEventListener('url', this.handleOpenURL);
 
         GeolocationOSO.refreshGeolocation();
-        Linking.getInitialURL().then(this.sendSignal());
       }
 
     componentWillUnmount() {

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
-//import firebase from '@firebase/app';
-//import '@firebase/auth';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 
 class LoginForm extends Component {
@@ -12,14 +10,6 @@ class LoginForm extends Component {
 
         this.setState({ error: '', loading: true });
 
-        /*
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(this.onLoginSuccess.bind(this)) 
-            .catch(() => {
-                firebase.auth().createUserWithEmailAndPassword(email, password)
-                    .then(this.onLoginSuccess.bind(this))
-                    .catch(this.onLoginFailed.bind(this));
-            }); */
     }
 
     onLoginSuccess() {
