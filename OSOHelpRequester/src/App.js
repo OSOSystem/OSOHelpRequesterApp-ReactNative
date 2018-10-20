@@ -5,6 +5,7 @@ import LoginForm from './components/LoginForm';
 import LoggedinForm from './components/LoggedinForm';
 import Login from './keycloak/index';
 import { TokenStorage } from './keycloak/TokenStorage';
+import Router from './Router';
 
 
 type Props = {};
@@ -18,6 +19,8 @@ export default class App extends Component<Props> {
         if(JSON.stringify(gatheredTokens).includes("access_token")) {
             this.setState({ loggedIn: true });
         } 
+
+        chooseComponent();
     } 
     
 
@@ -34,10 +37,7 @@ export default class App extends Component<Props> {
 
     render() {
         return (
-            <View>
-                <Header headerText="Authentication" />
-                {this.renderContent()}
-            </View>
+            <Router />
         );
     }
 }
