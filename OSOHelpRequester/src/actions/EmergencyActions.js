@@ -15,7 +15,7 @@ export const sendEmergency = (url, longitude, latitude) => {
 
     return (dispatch) => {
         dispatch({ type: EMERGENCY_SEND });
-        const error = sendSignal(url, longitude, latitude);
+        const error = await sendSignal(url, longitude, latitude);
         console.log("error: ",error);
 
         if(error != null) emergencyFailed(dispatch);

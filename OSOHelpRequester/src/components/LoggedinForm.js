@@ -21,8 +21,9 @@ class LoggedinForm extends Component {
         Linking.removeEventListener('url', this.handleOpenURL);
     }
 
-    async handleOpenURL(event) {
+    handleOpenURL(event) {
         //console.log("OSO-App -> Action reached: " + event.url);
+        this.sendSignal();
 
         Alert.alert(
             'Flic Button Pressed',
@@ -35,12 +36,12 @@ class LoggedinForm extends Component {
             { cancelable: false }
         )
 
-        this.sendSignal();
+        
     }
 
-    async refreshGeolocation() {
+    refreshGeolocation() {
         console.log("Start Refresh Geolocation");
-        await GeolocationOSO.refreshGeolocation();
+        GeolocationOSO.refreshGeolocation();
         var geodata = GeolocationOSO.getGeodata();
         console.log("Finished Refresh Geolocation");
 
@@ -50,9 +51,9 @@ class LoggedinForm extends Component {
 
 
 
-    async sendSignal() {
+    sendSignal() {
         console.log("Signal Send Clicked");
-        await this.refreshGeolocation();
+        this.refreshGeolocation();
         this.props.sendEmergency(
                             this.props.url, 
                             this.props.latitude, 
