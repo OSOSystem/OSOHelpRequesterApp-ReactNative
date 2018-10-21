@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {
-	Text,
-	TouchableWithoutFeedback,
-	View,
-    LayoutAnimation,
-    UIManager,
-    Platform
+		Text,
+		TouchableWithoutFeedback,
+		View,
+		LayoutAnimation,
+		UIManager,
+		Platform
     } from 'react-native';
     
 import { connect } from 'react-redux';
@@ -44,9 +44,7 @@ class ListItem extends Component {
 		const { id, title } = this.props.helpProvider;
 
 		return (
-			<TouchableWithoutFeedback
-				onPress={() => this.props.selectHelpProvider(id)}
-			>
+			<TouchableWithoutFeedback onPress={() => this.props.selectHelpProvider(id)}>
 				<View>
 					<CardSection>
 						<Text style={titleStyle}>

@@ -15,31 +15,7 @@ import { createStore, applyMiddleware  } from 'redux';
 import reducers from './reducers';
 import ReduxThunk from 'redux-thunk';
 
-
-
-type Props = {};
-export default class App extends Component<Props> {
-    state = { loggedIn: false };
-
-    async componentWillMount() {  
-        console.log("Test");
-
-    } 
-    
-
-    /*
-    renderContent() {
-        switch(this.state.loggedIn) {
-            case true:
-                return <LoggedinForm />;
-            case false:
-                return <LoginForm />;
-            default:
-                return <Spinner size="large" />;
-        }        
-    }
-    */
-
+class App extends Component {
     render() {
         const createdStore = createStore(reducers, {}, applyMiddleware(ReduxThunk));
         return (
@@ -49,3 +25,5 @@ export default class App extends Component<Props> {
         );
     }
 }
+
+export default App;
