@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { Text, DeviceEventEmitter, Linking, Alert } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import GeolocationOSO from '../Functions/Geolocation';
-import { sendEmergency } from '../Functions/EmergencySend';
 import { Actions } from 'react-native-router-flux';
 import Login from '../keycloak/index';
 import { longitudeChanged, latitudeChanged } from '../actions';
+import { sendEmergency, emergencyReachedHP, emergencyReachedServer, emergencyFailed } from '../actions';
 import { connect } from 'react-redux';
 
 class LoggedinForm extends Component {
-    state = { signalSend: false };
 
     componentDidMount() {
         // Used for our intent handling (atm. just for flic-button)
@@ -22,9 +21,9 @@ class LoggedinForm extends Component {
         Linking.removeEventListener('url', this.handleOpenURL);
     }
 
-    handleOpenURL(event) {
+    async handleOpenURL(event) {
         //console.log("OSO-App -> Action reached: " + event.url);
-        //this.sendSignal();
+
         Alert.alert(
             'Flic Button Pressed',
             'Aloha my friend',
@@ -35,11 +34,15 @@ class LoggedinForm extends Component {
             ],
             { cancelable: false }
         )
+
+        this.sendSignal();
     }
 
     async refreshGeolocation() {
+        console.log("Start Refresh Geolocation");
         await GeolocationOSO.refreshGeolocation();
         var geodata = GeolocationOSO.getGeodata();
+        console.log("Finished Refresh Geolocation");
 
         this.props.longitudeChanged(geodata.longitude);
         this.props.latitudeChanged(geodata.latitude);
@@ -48,17 +51,13 @@ class LoggedinForm extends Component {
 
 
     async sendSignal() {
-        this.setState({ signalSend: true });
-        console.log("Signal send clicked");
-        console.log("state.signalSend = " + this.state.signalSend);
-
-        //await GeolocationOSO.refreshGeolocation();
+        console.log("Signal Send Clicked");
         await this.refreshGeolocation();
-        console.log("started refreshing geolocation");
-
-        
-        //this.setState({ longitude: geodata.longitude, latitude: geodata.latitude });
-        await sendEmergency(this.props.latitude, this.props.longitude);
+        this.props.sendEmergency(
+                            this.props.url, 
+                            this.props.latitude, 
+                            this.props.longitude
+                        );
     }
 
     logout() {
@@ -66,13 +65,24 @@ class LoggedinForm extends Component {
         Actions.auth();
     }
 
+    renderSendButton() {
+        console.log("loading: ",this.props.loading);
+		if (this.props.loading) {
+			return <Spinner size="large" />;
+		}
+
+		return (
+			<Button onPress={this.sendSignal.bind(this)}>
+				Send Signal
+			</Button>
+		);
+	}
+
     render() {
         return (
             <Card>
                 <CardSection>
-                    <Button onPress={this.sendSignal.bind(this)}>
-                        Send Signal
-                    </Button>
+                    {this.renderSendButton()}
                 </CardSection>
                 <CardSection>
                     <Button onPress={this.refreshGeolocation.bind(this)}>
@@ -80,14 +90,16 @@ class LoggedinForm extends Component {
                     </Button>
                 </CardSection>
                 <CardSection>
-                    <Text>Signal send:</Text>
-                    <Text>{this.state.signalSend.toString()}</Text>
+                    <Text>Signal send: </Text>
+                    <Text>{this.props.sended}</Text>
                 </CardSection>
                 <CardSection>
                     <Text>Signal reached server: </Text>
+                    <Text>{this.props.reachedServer}</Text>
                 </CardSection>
                 <CardSection>
                     <Text>Signal reached HP: </Text>
+                    <Text>{this.props.HP}</Text>
                 </CardSection>
                 <CardSection>
                     <Text>Latitude: { this.props.latitude }</Text>                 
@@ -105,11 +117,13 @@ class LoggedinForm extends Component {
     }
 }
 
-const mapStateToProps = ({ geolocation }) => {
-	const { longitude, latitude } = geolocation;
-	return { longitude, latitude };
+const mapStateToProps = ({ emergency, geolocation }) => {
+    const { longitude, latitude } = geolocation;
+    const { url, loading, sended, reachedServer, reachedHP } = emergency;
+	return { url, longitude, latitude, loading, reachedServer, reachedHP };
 };
 
 export default connect(mapStateToProps, {
-	longitudeChanged, latitudeChanged
+    longitudeChanged, latitudeChanged, sendEmergency
 })(LoggedinForm);
+

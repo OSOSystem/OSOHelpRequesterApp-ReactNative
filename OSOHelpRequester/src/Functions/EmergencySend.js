@@ -1,4 +1,8 @@
-export async function sendEmergency(latitude, longitude) {
+export async function sendSignal(url, latitude, longitude, error = null) {
+    console.log("url: ",url);
+    console.log("latitude: ",latitude);
+    console.log("longitude: ",longitude);
+    
     var data = {
         helpRequesterId: 1,
         coordinates: {
@@ -9,8 +13,7 @@ export async function sendEmergency(latitude, longitude) {
     };
     try {
         console.log("Start emergency request");
-     let response = await fetch(
-      "http://app.ososystem.de:8080/emergency/emit",
+     let response = await fetch(url,
       {
         method: "POST",
         headers: {
@@ -26,6 +29,6 @@ export async function sendEmergency(latitude, longitude) {
      }
    } catch (errors) {
      console.log("Request Error")
-     alert(errors);
+     return errors;
     } 
 }

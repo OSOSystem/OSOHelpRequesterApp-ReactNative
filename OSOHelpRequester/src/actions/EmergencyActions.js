@@ -6,13 +6,21 @@ import {
 	EMERGENCY_FAILED
 } from './types';
 
+import { sendSignal }  from '../Functions/EmergencySend';
 
 
 
-export const sendEmergency = ({ url, longitude, latitude }) => {
-    dispatch({ type: EMERGENCY_SEND });
+export const sendEmergency = (url, longitude, latitude) => {
+    console.log("SendEmergency");
 
-    // ...
+    return (dispatch) => {
+        dispatch({ type: EMERGENCY_SEND });
+        const error = sendSignal(url, longitude, latitude);
+        console.log("error: ",error);
+
+        if(error != null) emergencyFailed(dispatch);
+        else emergencyReachedServer(dispatch);
+    }
 };
 
 

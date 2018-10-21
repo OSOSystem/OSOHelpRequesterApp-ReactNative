@@ -7,10 +7,10 @@ export const LOGIN_USER = 'login_user';
 export const HELPPROVIDER_SELECT = 'select_helpProvider';
 export const HELPPROVIDERS_FETCH_SUCCESS = 'helpProviders_fetch_success';
 
-export const EMERGENCY_SEND = '';
-export const EMERGENCY_REACHED_SERVER = '';
-export const EMERGENCY_REACHED_HP = '';
-export const EMERGENCY_FAILED = '';
+export const EMERGENCY_SEND = 'send_emergency';
+export const EMERGENCY_REACHED_SERVER = 'emergency_reached_server';
+export const EMERGENCY_REACHED_HP = 'emergency_reached_hp';
+export const EMERGENCY_FAILED = 'emergency_failed';
 
 export const LONGITUDE_CHANGED = 'longitude_changed';
 export const LATITUDE_CHANGED = 'latitude_changed';
