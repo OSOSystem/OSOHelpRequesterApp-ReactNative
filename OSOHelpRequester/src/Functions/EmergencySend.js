@@ -26,11 +26,6 @@ export async function sendSignal(url, latitude, longitude, error = null) {
         ).then((response) => response.json())
         .then(response => resolve(response))
         .catch(e => reject(e))
-
-        console.log("Response-Status: "+response.status);
-        if (response.status >= 200 && response.status < 300) {
-            alert("emergency accepted!!!");
-        }
     });
 
 

@@ -34,8 +34,6 @@ export class Login {
       return new Promise(((resolve, reject) => {
         const { url } = this.getLoginURL();
 
-        console.log("---");
-
         fetch(url, { 
           method: 'POST',
           body: querystring.stringify({
