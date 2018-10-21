@@ -1,8 +1,8 @@
 # OSO Help Requester Mobile App
-## OS-Support
-### iOS (currently not tested)
+## :iphone: OS-Support
+### ❌ iOS (currently not tested)
 
-### Android
+### ✔️ Android
 Minimal supported version Android 4.1
 
 ### 🔵 Configuration for Flic-Button usage (Android)
@@ -21,7 +21,7 @@ You are free to choose at which Action (Click, Double Click or Hold) you want to
 
 More options are coming very 🔜
 
-## Old OSO Android App
+## :older_man: Old OSO Android App
 https://github.com/pwilken/TrackingSystemAndroidApp
 
 ## Licensing
