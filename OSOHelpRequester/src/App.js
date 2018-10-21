@@ -3,6 +3,7 @@ import { View, Alert, Linking } from 'react-native';
 import { Header, Button, Spinner, Card, CardSection } from './components/common';
 import LoginForm from './components/LoginForm';
 import LoggedinForm from './components/LoggedinForm';
+import HelpProviderList from './components/HelpProviderList';
 
 import Login from './keycloak/index';
 import { TokenStorage } from './keycloak/TokenStorage';
@@ -13,6 +14,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
 
+const createdStore = createStore(reducers);
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -43,8 +45,10 @@ export default class App extends Component<Props> {
 
     render() {
         return (
-            <Provider store={createStore(reducers)}>
-                <Router />
+            <Provider store={createdStore}>
+                <View>
+                    <HelpProviderList />
+                </View>
             </Provider>
         );
     }
