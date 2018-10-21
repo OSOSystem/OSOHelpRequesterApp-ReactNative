@@ -3,6 +3,7 @@ import { Text, DeviceEventEmitter, Linking, Alert } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import GeolocationOSO from '../Functions/Geolocation';
 import { sendEmergency } from '../Functions/EmergencySend';
+import { Actions } from 'react-native-router-flux';
 import Login from '../keycloak/index';
 
 type Props = {};
@@ -35,17 +36,28 @@ export default class LoggedinForm extends Component<Props> {
         )
     }
 
-    sendSignal() {
+    async sendSignal() {
         this.setState({ signalSend: true });
         console.log("Signal send clicked");
         console.log("state.signalSend = " + this.state.signalSend);
 
-        GeolocationOSO.refreshGeolocation();
+        await GeolocationOSO.refreshGeolocation();
         console.log("started refreshing geolocation");
 
         var geodata = GeolocationOSO.getGeodata();
         this.setState({ longitude: geodata.longitude, latitude: geodata.latitude });
-        sendEmergency(geodata.latitude, geodata.longitude);
+        await sendEmergency(geodata.latitude, geodata.longitude);
+    }
+
+    async refreshGeolocation() {
+        await GeolocationOSO.refreshGeolocation();
+        var geodata = GeolocationOSO.getGeodata();
+        this.setState({ longitude: geodata.longitude, latitude: geodata.latitude });
+    }
+
+    logout() {
+        Login.logoutKc();
+        Actions.auth();
     }
 
     render() {
@@ -54,6 +66,11 @@ export default class LoggedinForm extends Component<Props> {
                 <CardSection>
                     <Button onPress={this.sendSignal.bind(this)}>
                         Send Signal
+                    </Button>
+                </CardSection>
+                <CardSection>
+                    <Button onPress={this.refreshGeolocation.bind(this)}>
+                        Refresh Location (manuell)
                     </Button>
                 </CardSection>
                 <CardSection>
@@ -73,7 +90,7 @@ export default class LoggedinForm extends Component<Props> {
                     <Text>Longitude: { this.state.longitude.toString() }</Text> 
                 </CardSection>
                 <CardSection>
-                    <Button onPress={Login.logoutKc.bind(this)}>
+                    <Button onPress={this.logout.bind(this)}>
                         Log Out
                     </Button>
                 </CardSection>                    

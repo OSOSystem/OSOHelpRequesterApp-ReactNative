@@ -44,10 +44,10 @@ export const loginUser = ({ email, password }) => {
             console.log("Start-Login with ",defaultAuthConfig,email,password);
 
             Login.startLoginProcess({
-                    url: defaultAuthConfig.url, realm: defaultAuthConfig.realm,
-                    clientId: defaultAuthConfig.clientId, clientSecret: defaultAuthConfig.clientSecret, 
-                    user: email, password: password
-                }).then(tokens => {
+                url: defaultAuthConfig.url, realm: defaultAuthConfig.realm,
+                clientId: defaultAuthConfig.clientId, clientSecret: defaultAuthConfig.clientSecret, 
+                username: email, password: password
+            }).then(tokens => {
                 if(JSON.stringify(tokens).includes("access_token")) {
                     console.log("Login-User success");
                     Login.saveTokens(tokens);
@@ -55,6 +55,7 @@ export const loginUser = ({ email, password }) => {
                 } 
                 else {
                     console.log("Login-User failed");
+                    console.log(tokens);
                     loginUserFail(dispatch);
                 }
             }); 

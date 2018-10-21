@@ -34,6 +34,8 @@ export class Login {
       return new Promise(((resolve, reject) => {
         const { url } = this.getLoginURL();
 
+        console.log("---");
+
         fetch(url, { 
           method: 'POST',
           body: querystring.stringify({
@@ -82,6 +84,7 @@ export class Login {
     }
 
     onOpenURL(event) {
+      /*
       if (event.url.startsWith(this.conf.appsiteUri)) {
         const {
           state,
@@ -90,7 +93,8 @@ export class Login {
         if (this.state.state === state) {
           this.retrieveTokens(code);
         }
-      }
+      } 
+      */
     }
 
 
