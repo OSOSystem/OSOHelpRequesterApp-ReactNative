@@ -1,5 +1,3 @@
-
-
 export default class GeolocationOSO {
     static geodata = {
             latitude: 1,
