@@ -11,16 +11,18 @@ import { TokenStorage } from './keycloak/TokenStorage';
 import Router from './Router';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware  } from 'redux';
 import reducers from './reducers';
+import ReduxThunk from 'redux-thunk';
 
-const createdStore = createStore(reducers);
+
 
 type Props = {};
 export default class App extends Component<Props> {
     state = { loggedIn: false };
 
     async componentWillMount() {  
+        console.log("Test");
         const gatheredTokens = await Login.getTokens();
         Login.refreshToken();
 
@@ -44,11 +46,10 @@ export default class App extends Component<Props> {
     }
 
     render() {
+        const createdStore = createStore(reducers, {}, applyMiddleware(ReduxThunk));
         return (
             <Provider store={createdStore}>
-                <View>
-                    <HelpProviderList />
-                </View>
+                <Router />
             </Provider>
         );
     }

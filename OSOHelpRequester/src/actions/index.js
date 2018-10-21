@@ -6,3 +6,6 @@ export const selectHelpProvider = (helpProviderId) => {
 		payload: helpProviderId
 	};
 };
+
+export * from './AuthActions';
+export * from './HelpProviderActions.js';
