@@ -23,17 +23,11 @@ export default class App extends Component<Props> {
 
     async componentWillMount() {  
         console.log("Test");
-        const gatheredTokens = await Login.getTokens();
-        Login.refreshToken();
 
-        if(JSON.stringify(gatheredTokens).includes("access_token")) {
-            this.setState({ loggedIn: true });
-        } 
-
-        chooseComponent();
     } 
     
 
+    /*
     renderContent() {
         switch(this.state.loggedIn) {
             case true:
@@ -44,6 +38,7 @@ export default class App extends Component<Props> {
                 return <Spinner size="large" />;
         }        
     }
+    */
 
     render() {
         const createdStore = createStore(reducers, {}, applyMiddleware(ReduxThunk));

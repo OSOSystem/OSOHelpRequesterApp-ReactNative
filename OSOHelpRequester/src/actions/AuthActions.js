@@ -1,4 +1,6 @@
 import { Actions } from 'react-native-router-flux';
+import Login from '../keycloak/index';
+import {defaultAuthConfig} from '../ConstConfigs/keycloakConfig';
 import { 
 	EMAIL_CHANGED,
 	PASSWORD_CHANGED,
@@ -6,6 +8,7 @@ import {
 	LOGIN_USER_FAIL, 
 	LOGIN_USER
 } from './types';
+
 
 export const emailChanged = (text) => {
 	return {
@@ -26,24 +29,37 @@ export const loginUser = ({ email, password }) => {
     
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
-        
-        if(email == "test" && password == "test") {
+
+        const gatheredTokens = Login.getTokens();
+        Login.refreshToken();
+    
+        console.log("Before stored-token test");
+        if(JSON.stringify(gatheredTokens).includes("access_token")) {
+            console.log("Valid stored tokens");
             loginUserSuccess(dispatch, null);
+        } 
+        else {
+            console.log("Start-Login with ",defaultAuthConfig,email,password);
+
+            Login.startLoginProcess({
+                    url: defaultAuthConfig.url, realm: defaultAuthConfig.realm,
+                    clientId: defaultAuthConfig.clientId, clientSecret: defaultAuthConfig.clientSecret, 
+                    user: email, password: password
+                }).then(tokens => {
+                if(JSON.stringify(tokens).includes("access_token")) {
+                    console.log("Login-User success");
+                    Login.saveTokens(tokens);
+                    loginUserSuccess(dispatch, null);
+                } 
+                else {
+                    console.log("Login-User failed");
+                    loginUserFail(dispatch);
+                }
+            }); 
         }
-
-        /*
-		firebase.auth().signInWithEmailAndPassword(email, password)
-		.then(user => loginUserSuccess(dispatch, user))
-		.catch((error) => {
-			console.log(error);
-
-			firebase.auth().createUserWithEmailAndPassword(email, password)
-				.then(user => loginUserSuccess(dispatch, user))
-				.catch(() => loginUserFail(dispatch));
-        });
-        */
 	};
 };
+
 
 const loginUserFail = (dispatch) => {
 	dispatch({ type: LOGIN_USER_FAIL });
