@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Text, DeviceEventEmitter, Linking, Alert
+  Text, Linking, Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -10,12 +10,12 @@ import {
 import GeolocationOSO from '../utilities/Geolocation';
 import Login from '../keycloak/index';
 import { longitudeChanged, latitudeChanged } from '../actions';
-import sendEmergency, {
+import {
+  sendEmergency,
   emergencyReachedHP, emergencyReachedServer, emergencyFailed
 } from '../actions';
 
-class LoggedinForm extends Component {
-
+class MainForm extends Component {
   componentDidMount() {
     // Used for our intent handling (atm. just for flic-button)
     Linking.addEventListener('url', this.handleOpenURL);
@@ -41,8 +41,6 @@ class LoggedinForm extends Component {
       ],
       { cancelable: false }
     );
-
-
   }
 
   refreshGeolocation() {
@@ -59,6 +57,7 @@ class LoggedinForm extends Component {
   sendSignal() {
     console.log('Signal Send Clicked');
     this.refreshGeolocation();
+
     this.props.sendEmergency(
       this.props.url,
       this.props.latitude,
@@ -143,4 +142,4 @@ const mapStateToProps = ({ emergency, geolocation }) => {
 
 export default connect(mapStateToProps, {
   longitudeChanged, latitudeChanged, sendEmergency
-})(LoggedinForm);
+})(MainForm);

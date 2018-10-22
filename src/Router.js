@@ -1,7 +1,7 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
-import LoggedinForm from './components/LoggedinForm';
+import MainForm from './components/MainForm';
 import HelpProviderList from './components/HelpProviderList';
 
 
@@ -16,7 +16,7 @@ const RouterComponent = () => (
           onRight={() => Actions.hpList()}
           rightTitle="HelpProvider"
           key="loggedin"
-          component={LoggedinForm}
+          component={MainForm}
           title="Loggedin"
         />
         <Scene key="hpList" component={HelpProviderList} title="HelpProvider" />

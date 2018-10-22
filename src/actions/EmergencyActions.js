@@ -7,14 +7,16 @@ import {
 
 import sendSignal from '../utilities/EmergencySend';
 
-
-export default (url, longitude, latitude) => {
+export const sendEmergency = (url, longitude, latitude) => {
   console.log('SendEmergency');
+
   return (dispatch) => {
     dispatch({ type: EMERGENCY_SEND });
     const response = sendSignal(url, longitude, latitude);
     console.log('response: ', response);
-    if (response != null) { emergencyFailed(dispatch); } else { emergencyReachedServer(dispatch); }
+
+    if (response != null) emergencyFailed(dispatch);
+    else emergencyReachedServer(dispatch);
   };
 };
 
