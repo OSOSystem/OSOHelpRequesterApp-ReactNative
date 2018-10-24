@@ -1,0 +1,24 @@
+{
+  "files.eol": "\n",
+  "cSpell.language": "en",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/.github": true
+    },
+    "eslint.enable": true,
+    "eslint.provideLintTask": true,
+    "flow.enabled": true,
+    "flow.fileExtensions": [
+      ".js",
+      ".mjs",
+      ".jsx",
+      ".flow",
+      ".json"
+    ]
+}
