@@ -22,9 +22,5 @@ export default async function sendSignal(url, latitude, longitude) {
   };
   console.log('Start emergency request');
 
-  return new Promise((resolve, reject) => {
-    fetch(url, params)
-      .then(response => resolve(response))
-      .catch(error => reject(error));
-  });
+  return fetch(url, params);
 }

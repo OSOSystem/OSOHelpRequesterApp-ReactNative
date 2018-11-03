@@ -8,8 +8,9 @@ import {
 } from './common';
 import GeolocationOSO from '../utilities/Geolocation';
 import {
-  longitudeChanged, latitudeChanged, sendEmergency,
-  emergencyReachedHP, emergencyReachedServer, emergencyFailed
+  longitudeChanged,
+  latitudeChanged,
+  sendEmergency
 } from '../actions';
 
 class MainForm extends Component {
@@ -24,9 +25,9 @@ class MainForm extends Component {
     Linking.removeEventListener('url', this.handleOpenURL);
   }
 
-  refreshGeolocation = () => {
+  refreshGeolocation = async () => {
     console.log('Start Refresh Geolocation');
-    GeolocationOSO.refreshGeolocation();
+    await GeolocationOSO.refreshGeolocation();
     const geodata = GeolocationOSO.getGeodata();
     console.log('Finished Refresh Geolocation');
 

@@ -5,8 +5,8 @@ export default class GeolocationOSO {
       error: null
     };
 
-    static refreshGeolocation() {
-      navigator.geolocation.getCurrentPosition(
+    static async refreshGeolocation() {
+      await navigator.geolocation.getCurrentPosition(
         (position) => {
           this.geodata = ({
             latitude: position.coords.latitude,
@@ -14,8 +14,8 @@ export default class GeolocationOSO {
             error: null,
           });
         },
-        (error) => {},
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+        (error) => { console.log('Geolocating-Error: ', error); },
+        { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
       ).catch(e => console.log('RefreshGeodata-Error: ', e));
     }
 
