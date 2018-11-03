@@ -51,13 +51,13 @@ class MainForm extends Component {
     this.Actions.auth();
   }
 
-  handleOpenURL(event) {
-    console.log(`OSO-App -> Action reached: ${event.url}`);
+  handleOpenURL = (event) => {
+    console.log('OSO-App -> Action reached: ', event);
     this.sendSignal();
 
     Alert.alert(
       'Flic Button Pressed',
-      'Aloha my friend',
+      'We have send your signal',
       [
         { text: 'Ask me later', onPress: () => console.log('Ask me later pressed') },
         { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
