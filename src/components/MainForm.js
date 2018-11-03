@@ -92,16 +92,39 @@ class MainForm extends Component {
           </Button>
         </CardSection>
         <CardSection>
-          <Text>Signal send: </Text>
-          <Text>{this.props.sended}</Text>
+          <Text>
+            Signal send:
+            {' '}
+            { this.props.sended.toString() }
+          </Text>
         </CardSection>
         <CardSection>
-          <Text>Signal reached server: </Text>
-          <Text>{this.props.reachedServer}</Text>
+          <Text>
+            Signal reached server:
+            {' '}
+            { this.props.reachedServer.toString() }
+          </Text>
         </CardSection>
         <CardSection>
-          <Text>Signal reached HP: </Text>
-          <Text>{this.props.HP}</Text>
+          <Text>
+            Signal reached HP:
+            {' '}
+            { this.props.reachedHP.toString() }
+          </Text>
+        </CardSection>
+        <CardSection>
+          <Text>
+            Response-Status:
+            {' '}
+            { this.props.responseStatus.toString() }
+          </Text>
+        </CardSection>
+        <CardSection>
+          <Text>
+            Error-Status:
+            {' '}
+            { this.props.error.toString() }
+          </Text>
         </CardSection>
         <CardSection>
           <Text>
@@ -130,10 +153,24 @@ class MainForm extends Component {
 const mapStateToProps = ({ emergency, geolocation }) => {
   const { longitude, latitude } = geolocation;
   const {
-    url, loading, sended, reachedServer, reachedHP
+    url,
+    loading,
+    sended,
+    reachedServer,
+    reachedHP,
+    error,
+    responseStatus
   } = emergency;
   return {
-    url, longitude, latitude, loading, reachedServer, reachedHP
+    url,
+    longitude,
+    latitude,
+    loading,
+    reachedServer,
+    reachedHP,
+    sended,
+    error,
+    responseStatus
   };
 };
 

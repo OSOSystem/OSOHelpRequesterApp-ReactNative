@@ -4,12 +4,11 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  longitude: null,
-  latitude: null
+  longitude: 0,
+  latitude: 0
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action);
   switch (action.type) {
     case LONGITUDE_CHANGED:
       return { ...state, longitude: action.payload };

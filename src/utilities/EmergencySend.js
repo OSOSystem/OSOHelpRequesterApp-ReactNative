@@ -3,7 +3,6 @@ export default async function sendSignal(url, latitude, longitude) {
   console.log('latitude: ', latitude);
   console.log('longitude: ', longitude);
 
-
   const data = {
     helpRequesterId: 1,
     coordinates: {
@@ -13,18 +12,19 @@ export default async function sendSignal(url, latitude, longitude) {
     formattedAddress: 'HelpRequester',
   };
 
+  const params = {
+    method: 'GET',
+    headers: {
+      // Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }// ,
+    // body: data
+  };
   console.log('Start emergency request');
-  fetch(url,
-    {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(response => () => {
-      console.log('Response: ', response);
-    })
-    .catch(e => console.log('Request-Error: ', e));
+
+  return new Promise((resolve, reject) => {
+    fetch(url, params)
+      .then(response => resolve(response))
+      .catch(error => reject(error));
+  });
 }
