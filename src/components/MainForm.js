@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import {
   Text, Linking, Alert
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import {
-  Button, Card, CardSection, Input, Spinner
+  Button, Card, CardSection, Spinner
 } from './common';
 import GeolocationOSO from '../utilities/Geolocation';
-import Login from '../keycloak/index';
-import { longitudeChanged, latitudeChanged } from '../actions';
 import {
-  sendEmergency,
+  longitudeChanged, latitudeChanged, sendEmergency,
   emergencyReachedHP, emergencyReachedServer, emergencyFailed
 } from '../actions';
 
@@ -27,8 +24,35 @@ class MainForm extends Component {
     Linking.removeEventListener('url', this.handleOpenURL);
   }
 
+  refreshGeolocation = () => {
+    console.log('Start Refresh Geolocation');
+    GeolocationOSO.refreshGeolocation();
+    const geodata = GeolocationOSO.getGeodata();
+    console.log('Finished Refresh Geolocation');
+
+    this.props.longitudeChanged(geodata.longitude);
+    this.props.latitudeChanged(geodata.latitude);
+  }
+
+
+  sendSignal = () => {
+    console.log('Signal Send Clicked');
+    this.refreshGeolocation();
+
+    this.props.sendEmergency(
+      this.props.url,
+      this.props.latitude,
+      this.props.longitude
+    );
+  }
+
+  logout = () => {
+    this.Login.logoutKc();
+    this.Actions.auth();
+  }
+
   handleOpenURL(event) {
-    // console.log("OSO-App -> Action reached: " + event.url);
+    console.log(`OSO-App -> Action reached: ${event.url}`);
     this.sendSignal();
 
     Alert.alert(
@@ -43,41 +67,14 @@ class MainForm extends Component {
     );
   }
 
-  refreshGeolocation() {
-    console.log('Start Refresh Geolocation');
-    GeolocationOSO.refreshGeolocation();
-    const geodata = GeolocationOSO.getGeodata();
-    console.log('Finished Refresh Geolocation');
-
-    this.props.longitudeChanged(geodata.longitude);
-    this.props.latitudeChanged(geodata.latitude);
-  }
-
-
-  sendSignal() {
-    console.log('Signal Send Clicked');
-    this.refreshGeolocation();
-
-    this.props.sendEmergency(
-      this.props.url,
-      this.props.latitude,
-      this.props.longitude
-    );
-  }
-
-  logout() {
-    Login.logoutKc();
-    Actions.auth();
-  }
-
   renderSendButton() {
-    console.log('loading: ', this.props.loading);
-    if (this.props.loading) {
+    console.log('loading: ', this.loading);
+    if (this.loading) {
       return <Spinner size="large" />;
     }
 
     return (
-      <Button onPress={this.sendSignal.bind(this)}>
+      <Button onPress={this.sendSignal}>
 				Send Signal
       </Button>
     );
@@ -90,7 +87,7 @@ class MainForm extends Component {
           {this.renderSendButton()}
         </CardSection>
         <CardSection>
-          <Button onPress={this.refreshGeolocation.bind(this)}>
+          <Button onPress={this.refreshGeolocation}>
                         Refresh Location (manuell)
           </Button>
         </CardSection>
@@ -108,21 +105,21 @@ class MainForm extends Component {
         </CardSection>
         <CardSection>
           <Text>
-Latitude:
+            Latitude:
             {' '}
             { this.props.latitude }
           </Text>
         </CardSection>
         <CardSection>
           <Text>
-Longitude:
+            Longitude:
             {' '}
             { this.props.longitude }
           </Text>
         </CardSection>
         <CardSection>
-          <Button onPress={this.logout.bind(this)}>
-                        Log Out
+          <Button onPress={this.logout}>
+            Log Out
           </Button>
         </CardSection>
       </Card>
