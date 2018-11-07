@@ -25,7 +25,7 @@ More options are coming very 🔜
 https://github.com/pwilken/TrackingSystemAndroidApp
 
 ## Licensing
-Apache 2.0 licensing https://github.com/pwilken/OSOHelpRequesterApp-ReactNative/blob/master/LICENSE
+Apache 2.0 licensing https://github.com/OSOSystem/OSOHelpRequesterApp-ReactNative/blob/master/LICENSE
 
 React-Native (https://github.com/facebook/react-native/blob/master/LICENSE)
 
