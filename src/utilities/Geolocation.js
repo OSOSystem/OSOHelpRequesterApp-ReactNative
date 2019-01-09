@@ -1,0 +1,28 @@
+export default class GeolocationOSO {
+    static geodata = {
+      latitude: 0,
+      longitude: 0,
+      error: null
+    };
+
+    static async refreshGeolocation() {
+      await navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.geodata = ({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            error: null,
+          });
+        },
+        (error) => { console.log('Geolocating-Error: ', error); },
+        { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
+      ).catch(e => console.log('RefreshGeodata-Error: ', e));
+    }
+
+    static getGeodata(geodata) {
+      console.log(`latitude: ${this.geodata.latitude}`);
+      console.log(`longitude: ${this.geodata.longitude}`);
+      console.log(`error: ${this.geodata.error}`);
+      return this.geodata;
+    }
+}
