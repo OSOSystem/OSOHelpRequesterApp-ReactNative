@@ -6,11 +6,11 @@ export default async function sendSignal(url, latitude, longitude) {
 
   const data = {
     helpRequesterId: 1,
+    emergencyType: 'HIGH',
     coordinates: {
       latitude,
       longitude,
-    },
-    formattedAddress: 'HelpRequester',
+    }
   };
 
   console.log('Start emergency request');
@@ -18,7 +18,6 @@ export default async function sendSignal(url, latitude, longitude) {
     {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
