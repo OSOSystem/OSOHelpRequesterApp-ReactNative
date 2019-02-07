@@ -6,7 +6,7 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  url: 'http://app.ososystem.de:8080/emergency/emit',
+  url: 'http://51.75.67.97:32085/emergency/emit',
   error: '',
   loading: false,
   sended: false,
