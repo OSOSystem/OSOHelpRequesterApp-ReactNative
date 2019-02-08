@@ -5,7 +5,7 @@ export default async function sendSignal(url, latitude, longitude) {
 
 
   const data = {
-    helpRequesterId: 1,
+    helprequester: '1',
     emergencyType: 'HIGH',
     coordinates: {
       latitude,
