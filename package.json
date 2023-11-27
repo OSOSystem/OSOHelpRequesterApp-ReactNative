@@ -8,11 +8,11 @@
     "lint": "eslint *.js **/*.js"
   },
   "dependencies": {
-    "babel-preset-react-native": "^2.1.0",
+    "babel-preset-react-native": "^5.0.0",
     "react": "16.4.1",
-    "react-native": "0.55.4",
+    "react-native": "0.60.0",
     "react-native-login-keycloak": "^1.0.2",
-    "react-native-router-flux": "^4.0.5",
+    "react-native-router-flux": "^4.2.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
